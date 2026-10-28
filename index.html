@@ -306,7 +306,24 @@
   /* liens vers le graphe dans les résultats */
   .link { color: var(--primary); font-weight: 600; cursor: pointer; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--primary) 35%, transparent); text-underline-offset: 3px; }
   .link:hover { text-decoration-color: var(--primary); }
-  .head-actions { display: flex; gap: 8px; }
+  .head-actions { display: flex; gap: 8px; align-items: center; }
+  /* assistant IA (explication des résultats) */
+  .ia-toggle { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 10px 0 12px; border-radius: 10px; cursor: pointer; font-size: .8rem; font-weight: 600; color: var(--text-soft); background: var(--surface); border: 1px solid var(--border); user-select: none; }
+  .ia-toggle[hidden] { display: none; }
+  .ia-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+  .ia-toggle .sw { position: relative; width: 30px; height: 17px; border-radius: 999px; background: var(--border-strong); transition: .2s; }
+  .ia-toggle .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; transition: .2s; box-shadow: 0 1px 2px rgba(0, 0, 0, .25); }
+  .ia-toggle input:checked + .sw { background: linear-gradient(135deg, var(--primary), var(--primary-2)); }
+  .ia-toggle input:checked + .sw::after { transform: translateX(13px); }
+  .ia-toggle input:focus-visible + .sw { outline: 3px solid color-mix(in srgb, var(--primary) 45%, transparent); outline-offset: 2px; }
+  .explain { display: flex; gap: 12px; margin-bottom: 14px; padding: 14px 16px; border-radius: 14px; font-size: .92rem; line-height: 1.55; color: var(--text);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 9%, transparent), color-mix(in srgb, var(--primary-2) 9%, transparent));
+    border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent); animation: rowIn .3s both; }
+  .explain .ai-ic { flex: 0 0 auto; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; color: #fff; font-size: .85rem; background: linear-gradient(135deg, var(--primary), var(--primary-2)); }
+  .explain small { display: block; margin-top: 6px; font-size: .72rem; color: var(--text-muted); }
+  .explain.err { color: var(--text-muted); font-size: .84rem; }
+  .shimmer { height: 12px; margin: 6px 0; border-radius: 6px; background: linear-gradient(90deg, var(--surface-2) 25%, color-mix(in srgb, var(--primary) 18%, var(--surface-2)) 50%, var(--surface-2) 75%); background-size: 200% 100%; animation: shim 1.2s infinite linear; }
+  @keyframes shim { to { background-position: -200% 0; } }
   .btn-sm { height: 34px; padding: 0 12px; border-radius: 10px; font-size: .8rem; }
   .menu { position: relative; }
   .menu summary { list-style: none; }
@@ -319,6 +336,36 @@
   #graph { height: 420px; border-radius: 15px; border: 1px solid var(--border); background: var(--surface-solid); }
   .graph-empty { display: grid; place-items: center; height: 420px; padding: 24px; text-align: center; color: var(--text-muted); font-size: .88rem; border: 1.5px dashed var(--border-strong); border-radius: 15px; }
   .graph-help { margin-top: 10px; font-size: .78rem; color: var(--text-muted); }
+  /* filtre multicritère */
+  .filter { margin-top: 20px; }
+  .flt-label { display: block; margin-bottom: 6px; font-size: .74rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); }
+  .fsel {
+    height: 40px; min-width: 0; padding: 0 12px; border-radius: 11px; border: 1px solid var(--border-strong);
+    background: var(--surface-solid); color: var(--text); font: inherit; font-size: .88rem; outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .fsel:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+  select.fsel { padding-right: 30px; cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center; }
+  .flt-top { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 150px 110px; gap: 12px; align-items: end; }
+  .flt-top .fsel { width: 100%; }
+  .conds { display: grid; gap: 10px; margin: 16px 0 12px; }
+  .conds:empty::before { content: "Aucune condition : tous les éléments de la classe seront affichés."; font-size: .84rem; color: var(--text-muted); }
+  .cond { display: grid; grid-template-columns: 34px minmax(0, 1.3fr) minmax(0, .9fr) minmax(0, 1.5fr) 38px; gap: 10px; align-items: center; animation: rowIn .25s both; }
+  .cond .fsel { width: 100%; }
+  .cond .et { font-size: .72rem; font-weight: 800; text-align: center; color: var(--primary); }
+  .cond .vals { display: flex; gap: 8px; align-items: center; min-width: 0; }
+  .cond .vals .fsel { flex: 1; }
+  .cond .vals span { font-size: .8rem; color: var(--text-muted); }
+  .flt-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .flt-desc { margin: 0 0 12px; padding: 9px 13px; border-radius: 11px; font-size: .84rem; color: var(--text-soft); background: var(--surface-2); }
+  .flt-desc b { color: var(--primary); }
+  @media (max-width: 760px) {
+    .flt-top { grid-template-columns: 1fr 1fr; }
+    .cond { grid-template-columns: 1fr 1fr 38px; }
+    .cond .et { display: none; }
+    .cond .vals { grid-column: 1 / 3; }
+  }
 
   footer { padding: 10px 0 40px; text-align: center; color: var(--text-muted); font-size: .8rem; }
   .tech { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 10px; }
@@ -470,6 +517,33 @@
     </div>
   </section>
 
+  <section class="card filter" aria-labelledby="flt-title">
+    <div class="card-head">
+      <div class="card-title">
+        <span class="badge-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3Z"/></svg></span>
+        <div><h2 id="flt-title">Filtre multicritère</h2><p>Construisez une requête SPARQL (FILTER, ORDER BY) sans écrire de code</p></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="flt-top">
+        <div><label class="flt-label" for="fClass">Rechercher des</label><select class="fsel" id="fClass"></select></div>
+        <div><label class="flt-label" for="fSort">Trier par</label><select class="fsel" id="fSort"></select></div>
+        <div><label class="flt-label" for="fDir">Ordre</label>
+          <select class="fsel" id="fDir"><option value="asc">Croissant ↑</option><option value="desc">Décroissant ↓</option></select></div>
+        <div><label class="flt-label" for="fLimit">Limite</label><input class="fsel" id="fLimit" type="number" min="1" max="500" value="100"></div>
+      </div>
+      <div class="conds" id="conds" aria-label="Conditions du filtre"></div>
+      <div class="flt-actions">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="addCond()">＋ Ajouter une condition</button>
+        <span style="flex:1"></span>
+        <button type="button" class="btn btn-ghost" onclick="resetFilter()">Réinitialiser</button>
+        <button type="button" class="btn btn-primary" id="fltBtn" onclick="runFilter()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3Z"/></svg><span>Filtrer</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <main class="grid">
     <section class="card" aria-labelledby="res-title">
       <div class="card-head">
@@ -478,6 +552,9 @@
           <div><h2 id="res-title">Résultats</h2><p id="res-sub">Cliquez sur un nom pour voir son graphe</p></div>
         </div>
         <div class="head-actions">
+          <label class="ia-toggle" id="iaToggle" title="Explication des résultats en langage clair (Cohere)" hidden>
+            <input type="checkbox" id="iaOn"><span class="sw" aria-hidden="true"></span>✨ IA
+          </label>
           <button type="button" class="btn btn-ghost btn-sm" onclick="exportCsv()" title="Télécharger les résultats en CSV">CSV</button>
           <details class="menu">
             <summary class="btn btn-ghost btn-sm" title="Télécharger l'ontologie">Ontologie ▾</summary>
@@ -627,7 +704,7 @@ async function runSparql(verif) {
     steps(4);
     if (d.message) {
       $("msg").textContent = d.message + " (" + d.triples + " triplets)";
-      refreshStats(); loadVocab();
+      refreshStats(); loadVocab(); loadSchema();
       if (typeof verif === "string") {                      // après un ajout / une modification : afficher la fiche
         const v = await post("/sparql", { query: verif });
         if (!v.error) { const h = document.createElement("h3"); h.textContent = "Résultat dans l'ontologie"; $("out").appendChild(h); showTable(v); }
@@ -635,8 +712,29 @@ async function runSparql(verif) {
       return;
     }
     showTable(d);
+    explainResults(d);
   } catch (e) { $("err").textContent = "Serveur injoignable : lancez « python server.py »."; }
   finally { busy($("runBtn"), false); }
+}
+
+// --- assistant IA : explique les résultats déjà calculés (ne touche ni au NLP ni au SPARQL)
+let EXPLAIN_ID = 0;
+async function explainResults(d, question) {
+  if (!$("iaOn").checked || $("iaToggle").hidden) return;
+  question = question || d.question || $("question").value;
+  const id = ++EXPLAIN_ID, box = document.createElement("div");
+  box.className = "explain";
+  box.innerHTML = '<span class="ai-ic" aria-hidden="true">✨</span><div style="flex:1"><div class="shimmer" style="width:92%"></div><div class="shimmer" style="width:68%"></div></div>';
+  $("out").prepend(box);
+  try {
+    const r = await post("/explain", { question, cols: d.cols, rows: d.rows });
+    if (id !== EXPLAIN_ID) return;                        // une autre question a été posée entre-temps
+    const body = box.lastElementChild; body.textContent = "";
+    if (r.error) { box.classList.add("err"); body.textContent = r.error; return; }
+    body.append(r.texte);
+    const note = document.createElement("small"); note.textContent = "Explication générée par IA (Cohere) à partir des résultats ci-dessous";
+    body.appendChild(note);
+  } catch (e) { box.classList.add("err"); box.lastElementChild.textContent = "Assistant IA injoignable."; }
 }
 
 async function save() { reset(); const d = await post("/save", {}); $("msg").textContent = d.message; }
@@ -724,7 +822,9 @@ async function loadVocab() {
   try {
     const r = await fetch("/vocab");
     if (!r.ok) throw new Error(r.status);
-    VOCAB = new Set((await r.json()).individus);
+    const v = await r.json();
+    VOCAB = new Set(v.individus);
+    $("iaToggle").hidden = !v.ia;                          // interrupteur visible seulement si une clé Cohere est configurée
   } catch (e) {
     $("note").textContent = "⚠ Le serveur utilise une ancienne version : arrêtez-le (Ctrl+C) puis relancez « python server.py ».";
   }
@@ -817,7 +917,133 @@ try { const t = localStorage.getItem("theme"); if (t) document.documentElement.d
 document.addEventListener("keydown", e => {
   if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); $("question").focus(); }
 });
-refreshStats(); loadVocab(); renderHistory();
+// --- filtre multicritère : le formulaire est envoyé au serveur, qui construit et exécute la requête SPARQL
+let SCHEMA = null, DL = 0;
+const OPS = {
+  nombre: [["=", "="], ["!=", "≠"], [">", ">"], [">=", "≥"], ["<", "<"], ["<=", "≤"], ["entre", "entre"]],
+  date: [["=", "le"], [">", "après le"], [">=", "à partir du"], ["<", "avant le"], ["<=", "jusqu'au"], ["entre", "entre"]],
+  texte: [["contient", "contient"], ["commence", "commence par"], ["egal", "est égal à"], ["different", "est différent de"]],
+  relation: [["est", "est"], ["nest", "n'est pas"]],
+};
+const opt = (v, t) => { const o = document.createElement("option"); o.value = v; o.textContent = t; return o; };
+const classInfo = () => SCHEMA && SCHEMA.classes.find(c => c.id === $("fClass").value);
+const pretty = v => v.replace(/_/g, " ");
+
+async function loadSchema() {
+  try {
+    const r = await fetch("/schema"); if (!r.ok) return;
+    const keep = $("fClass").value; SCHEMA = await r.json();
+    const sel = $("fClass"), groups = {}; sel.innerHTML = "";
+    SCHEMA.classes.forEach(c => {
+      if (!groups[c.top]) { groups[c.top] = document.createElement("optgroup"); groups[c.top].label = c.top; }
+      groups[c.top].appendChild(opt(c.id, c.label));
+    });
+    Object.keys(groups).sort((a, b) => a.localeCompare(b, "fr")).forEach(k => sel.appendChild(groups[k]));
+    sel.value = keep || "Sinistre";
+    if (!keep) onClassChange();
+  } catch (e) {}
+}
+
+function onClassChange() {
+  const c = classInfo(); if (!c) return;
+  const s = $("fSort"); s.innerHTML = ""; s.appendChild(opt("", "— aucun tri —"));
+  c.props.filter(p => SCHEMA.props[p].kind !== "relation").forEach(p => s.appendChild(opt(p, SCHEMA.props[p].label)));
+  $("conds").innerHTML = "";
+  if (c.props.length) addCond();
+}
+
+function relabel() { [...$("conds").children].forEach((r, i) => r.querySelector(".et").textContent = i ? "ET" : "SI"); }
+
+function addCond() {
+  const c = classInfo(); if (!c) return;
+  if (!c.props.length) { toast("Aucune propriété pour cette classe"); return; }
+  const row = document.createElement("div"); row.className = "cond";
+  const et = document.createElement("span"); et.className = "et";
+  const ps = document.createElement("select"); ps.className = "fsel"; ps.setAttribute("aria-label", "Propriété");
+  const gv = document.createElement("optgroup"); gv.label = "Valeurs";
+  const gr = document.createElement("optgroup"); gr.label = "Relations";
+  c.props.forEach(p => (SCHEMA.props[p].kind === "relation" ? gr : gv).appendChild(opt(p, SCHEMA.props[p].label)));
+  [gv, gr].forEach(g => g.children.length && ps.appendChild(g));
+  const os = document.createElement("select"); os.className = "fsel"; os.setAttribute("aria-label", "Opérateur");
+  const vals = document.createElement("div"); vals.className = "vals";
+  const del = document.createElement("button"); del.type = "button"; del.className = "icon-btn"; del.textContent = "✕";
+  del.setAttribute("aria-label", "Supprimer la condition"); del.onclick = () => { row.remove(); relabel(); };
+
+  const field = (p) => {                                   // champ de saisie adapté au type de la propriété
+    const P = SCHEMA.props[p];
+    if (P.kind === "relation") {
+      const s = document.createElement("select"); s.className = "fsel";
+      P.values.forEach(v => s.appendChild(opt(v, pretty(v)))); return s;
+    }
+    const i = document.createElement("input"); i.className = "fsel";
+    i.type = P.kind === "nombre" ? "number" : P.kind === "date" ? "date" : "text";
+    if (P.kind === "nombre") i.step = "any";
+    if (P.kind === "texte") {
+      i.placeholder = "valeur…";
+      const dl = document.createElement("datalist"); dl.id = "dl" + (++DL);
+      P.values.forEach(v => dl.appendChild(opt(v, ""))); vals.appendChild(dl); i.setAttribute("list", dl.id);
+    }
+    i.addEventListener("keydown", e => { if (e.key === "Enter") runFilter(); });
+    return i;
+  };
+  const renderVals = () => {
+    vals.innerHTML = "";
+    const a = field(ps.value); a.setAttribute("aria-label", "Valeur"); vals.appendChild(a);
+    if (os.value === "entre") {
+      const sp = document.createElement("span"); sp.textContent = "et"; vals.appendChild(sp);
+      const b = field(ps.value); b.setAttribute("aria-label", "Seconde valeur"); vals.appendChild(b);
+    }
+  };
+  const renderOps = () => {
+    os.innerHTML = ""; OPS[SCHEMA.props[ps.value].kind].forEach(([v, t]) => os.appendChild(opt(v, t)));
+    if (SCHEMA.props[ps.value].kind === "nombre") os.value = ">=";
+    renderVals();
+  };
+  ps.onchange = renderOps; os.onchange = renderVals;
+  row._get = () => {
+    const f = [...vals.querySelectorAll("input:not([type=hidden]), select")];
+    return { prop: ps.value, op: os.value, valeur: f[0] ? f[0].value : "", valeur2: f[1] ? f[1].value : "" };
+  };
+  row.append(et, ps, os, vals, del);
+  $("conds").appendChild(row); relabel(); renderOps();
+}
+
+function describe(c, conds) {                               // résumé lisible du filtre (affiché au-dessus des résultats)
+  const parts = conds.map(k => {
+    const P = SCHEMA.props[k.prop], o = (OPS[P.kind].find(x => x[0] === k.op) || [, k.op])[1];
+    return P.label + " " + o + " " + (k.op === "entre" ? k.valeur + " et " + k.valeur2 : pretty(k.valeur));
+  });
+  let s = c.label + (parts.length ? " dont " + parts.join(" et ") : "");
+  if ($("fSort").value) s += ", triés par " + SCHEMA.props[$("fSort").value].label + ($("fDir").value === "desc" ? " (décroissant)" : " (croissant)");
+  return s;
+}
+
+async function runFilter() {
+  const c = classInfo(); if (!c) return;
+  const conds = [...$("conds").children].map(r => r._get());
+  reset(); closeAc(); steps(0); busy($("fltBtn"), true, "Filtrage…");
+  try {
+    const d = await post("/filter", { classe: c.id, conditions: conds, tri: $("fSort").value, sens: $("fDir").value, limite: $("fLimit").value });
+    if (d.sparql) { $("sparql").value = d.sparql; showPane("pSparql"); }
+    if (d.error) { $("err").textContent = d.error; return; }
+    const desc = describe(c, conds), p = document.createElement("p"); p.className = "flt-desc";
+    const b = document.createElement("b"); b.textContent = "Filtre : "; p.append(b, desc);
+    $("out").appendChild(p);
+    d.question = desc; showTable(d); explainResults(d, desc);
+    $("res-title").scrollIntoView({ behavior: "smooth", block: "center" });
+  } catch (e) { $("err").textContent = "Serveur injoignable : lancez « python server.py »."; }
+  finally { busy($("fltBtn"), false); }
+}
+
+function resetFilter() { $("fSort").value = ""; $("fDir").value = "asc"; $("fLimit").value = 100; onClassChange(); }
+$("fClass").addEventListener("change", onClassChange);
+
+try { $("iaOn").checked = localStorage.getItem("ia") === "1"; } catch (e) {}
+$("iaOn").addEventListener("change", () => {
+  try { localStorage.setItem("ia", $("iaOn").checked ? "1" : "0"); } catch (e) {}
+  if ($("iaOn").checked && LAST && !$("out").querySelector(".explain")) explainResults(LAST);
+});
+refreshStats(); loadVocab(); loadSchema(); renderHistory();
 </script>
 </body>
 </html>

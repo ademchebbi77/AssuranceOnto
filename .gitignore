@@ -1,0 +1,3 @@
+# clé API : ne jamais publier
+.env
+__pycache__/

@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+<rdf:RDF xmlns="http://www.example.org/assuranceonto#"
+     xml:base="http://www.example.org/assuranceonto"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:assurance="http://www.example.org/assuranceonto#">
+
+    <owl:Ontology rdf:about="http://www.example.org/assuranceonto">
+        <rdfs:label xml:lang="fr">AssuranceOnto : contrats, garanties, clauses légales, dommages, sinistres et barèmes d'indemnisation</rdfs:label>
+    </owl:Ontology>
+
+    <!-- ================================================================ -->
+    <!--  OBJECT PROPERTIES                                             -->
+    <!-- ================================================================ -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#comporteGarantie">
+        <rdfs:label xml:lang="fr">comporte la garantie</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+        <owl:inverseOf rdf:resource="http://www.example.org/assuranceonto#estIncluseDans"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#estIncluseDans">
+        <rdfs:label xml:lang="fr">est incluse dans</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#contientClause">
+        <rdfs:label xml:lang="fr">contient la clause</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+        <owl:inverseOf rdf:resource="http://www.example.org/assuranceonto#estClauseDe"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#estClauseDe">
+        <rdfs:label xml:lang="fr">est clause de</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#souscritPar">
+        <rdfs:label xml:lang="fr">souscrit par</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <owl:inverseOf rdf:resource="http://www.example.org/assuranceonto#souscrit"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#souscrit">
+        <rdfs:label xml:lang="fr">souscrit</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#emisPar">
+        <rdfs:label xml:lang="fr">émis par</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <owl:inverseOf rdf:resource="http://www.example.org/assuranceonto#emet"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#emet">
+        <rdfs:label xml:lang="fr">émet</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#couvreBien">
+        <rdfs:label xml:lang="fr">couvre le bien</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#BienAssure"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#aPrime">
+        <rdfs:label xml:lang="fr">a pour prime</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Prime"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#couvreDommage">
+        <rdfs:label xml:lang="fr">couvre le dommage</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#excluDommage">
+        <rdfs:label xml:lang="fr">exclut le dommage</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ClauseExclusion"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#concerneContrat">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">concerne le contrat</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#declarePar">
+        <rdfs:label xml:lang="fr">déclaré par</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <owl:inverseOf rdf:resource="http://www.example.org/assuranceonto#declare"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#declare">
+        <rdfs:label xml:lang="fr">déclare</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#causeDommage">
+        <rdfs:label xml:lang="fr">cause le dommage</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#expertisePar">
+        <rdfs:label xml:lang="fr">expertisé par</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Expert"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#donneLieuA">
+        <rdfs:label xml:lang="fr">donne lieu à l'indemnisation</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <owl:inverseOf rdf:resource="http://www.example.org/assuranceonto#resulteDe"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#resulteDe">
+        <rdfs:label xml:lang="fr">résulte du sinistre</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#selonBareme">
+        <rdfs:label xml:lang="fr">calculée selon le barème</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#baremePourDommage">
+        <rdfs:label xml:lang="fr">barème applicable au dommage</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#emploieExpert">
+        <rdfs:label xml:lang="fr">emploie l'expert</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Expert"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#coAssureAvec">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:label xml:lang="fr">co-assuré avec</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+    </owl:ObjectProperty>
+
+    <!-- Propriétés définies par chaînes (axiomes) -->
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#estClientDe">
+        <rdfs:label xml:lang="fr">est client de  (souscrit o emisPar)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#souscrit"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#emisPar"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/assuranceonto#gerePar">
+        <rdfs:label xml:lang="fr">géré par  (concerneContrat o emisPar)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#concerneContrat"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#emisPar"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+
+    <!-- ================================================================ -->
+    <!--  DATA PROPERTIES                                               -->
+    <!-- ================================================================ -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#numeroContrat">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">numéro de contrat</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#dateEffet">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">date d'effet</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#dateEcheance">
+        <rdfs:label xml:lang="fr">date d'échéance</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#plafondGarantie">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">plafond de garantie (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#franchise">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">franchise (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#libelleClause">
+        <rdfs:label xml:lang="fr">libellé de la clause</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#referenceLegale">
+        <rdfs:label xml:lang="fr">référence légale</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#niveauGravite">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">niveau de gravité (1 à 5)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#tauxIndemnisation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">taux d'indemnisation (%)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#plafondIndemnisation">
+        <rdfs:label xml:lang="fr">plafond d'indemnisation (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#montantEstime">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">montant estimé du sinistre (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#dateSinistre">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">date du sinistre</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#dateDeclaration">
+        <rdfs:label xml:lang="fr">date de déclaration</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#montantVerse">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">montant versé (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#dateVersement">
+        <rdfs:label xml:lang="fr">date de versement</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#nomAssure">
+        <rdfs:label xml:lang="fr">nom de l'assuré</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#age">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">âge</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#AssureParticulier"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#raisonSociale">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">raison sociale</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#nomExpert">
+        <rdfs:label xml:lang="fr">nom de l'expert</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Expert"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#valeurBien">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">valeur du bien (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#BienAssure"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#immatriculation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">immatriculation</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Vehicule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#surfaceM2">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">surface en m²</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Logement"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#montantPrime">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="fr">montant de la prime (TND)</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Prime"/>
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/assuranceonto#periodicite">
+        <rdfs:label xml:lang="fr">périodicité</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.example.org/assuranceonto#Prime"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+
+    <!-- ================================================================ -->
+    <!--  CLASSES (12 principales + sous-classes)                       -->
+    <!-- ================================================================ -->
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratAssurance">
+        <rdfs:label xml:lang="fr">Contrat d'assurance</rdfs:label>
+        <rdfs:comment xml:lang="fr">Accord par lequel l'assureur s'engage à garantir l'assuré contre des risques moyennant une prime.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#comporteGarantie"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Garantie"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#souscritPar"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#Assure"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#emisPar"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#Assureur"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#numeroContrat"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onDataRange rdf:resource="&xsd;string"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#dateEffet"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onDataRange rdf:resource="&xsd;dateTime"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Garantie">
+        <rdfs:label xml:lang="fr">Garantie</rdfs:label>
+        <rdfs:comment xml:lang="fr">Engagement de l'assureur de couvrir un type de dommage jusqu'à un plafond.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreDommage"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Dommage"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#plafondGarantie"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;decimal">0</xsd:minInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ClauseLegale">
+        <rdfs:label xml:lang="fr">Clause légale</rdfs:label>
+        <rdfs:comment xml:lang="fr">Disposition légale ou contractuelle encadrant le contrat (exclusion, résiliation, subrogation...).</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#libelleClause"/><owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minQualifiedCardinality><owl:onDataRange rdf:resource="&xsd;string"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Dommage">
+        <rdfs:label xml:lang="fr">Dommage</rdfs:label>
+        <rdfs:comment xml:lang="fr">Préjudice subi par l'assuré ou un tiers.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#niveauGravite"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;integer"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;integer">1</xsd:minInclusive></rdf:Description><rdf:Description><xsd:maxInclusive rdf:datatype="&xsd;integer">5</xsd:maxInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#BaremeIndemnisation">
+        <rdfs:label xml:lang="fr">Barème d'indemnisation</rdfs:label>
+        <rdfs:comment xml:lang="fr">Grille fixant le taux et le plafond d'indemnisation selon le dommage.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#tauxIndemnisation"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;decimal">0</xsd:minInclusive></rdf:Description><rdf:Description><xsd:maxInclusive rdf:datatype="&xsd;decimal">100</xsd:maxInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#baremePourDommage"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Dommage"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Sinistre">
+        <rdfs:label xml:lang="fr">Sinistre</rdfs:label>
+        <rdfs:comment xml:lang="fr">Événement dommageable déclaré par un assuré au titre d'un contrat.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#concerneContrat"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#declarePar"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#Assure"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#causeDommage"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Dommage"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#montantEstime"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;decimal">0</xsd:minInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Assure">
+        <rdfs:label xml:lang="fr">Assuré</rdfs:label>
+        <rdfs:comment xml:lang="fr">Personne (physique ou morale) qui souscrit un contrat d'assurance.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Assureur">
+        <rdfs:label xml:lang="fr">Assureur</rdfs:label>
+        <rdfs:comment xml:lang="fr">Compagnie d'assurance qui émet les contrats et indemnise les sinistres.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#raisonSociale"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onDataRange rdf:resource="&xsd;string"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Expert">
+        <rdfs:label xml:lang="fr">Expert</rdfs:label>
+        <rdfs:comment xml:lang="fr">Professionnel chargé d'évaluer un sinistre.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Indemnisation">
+        <rdfs:label xml:lang="fr">Indemnisation</rdfs:label>
+        <rdfs:comment xml:lang="fr">Somme versée par l'assureur à la suite d'un sinistre.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#selonBareme"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#montantVerse"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;decimal">0</xsd:minInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#BienAssure">
+        <rdfs:label xml:lang="fr">Bien assuré</rdfs:label>
+        <rdfs:comment xml:lang="fr">Bien faisant l'objet de la couverture (véhicule, logement...).</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Prime">
+        <rdfs:label xml:lang="fr">Prime d'assurance</rdfs:label>
+        <rdfs:comment xml:lang="fr">Somme payée par l'assuré en contrepartie de la garantie.</rdfs:comment>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#montantPrime"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;decimal">0</xsd:minInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <!-- SOUS-CLASSES -->
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratAuto">
+        <rdfs:label xml:lang="fr">Contrat automobile</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreBien"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Vehicule"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreBien"/><owl:allValuesFrom rdf:resource="http://www.example.org/assuranceonto#Vehicule"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratHabitation">
+        <rdfs:label xml:lang="fr">Contrat habitation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreBien"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Logement"/></owl:Restriction></rdfs:subClassOf>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreBien"/><owl:allValuesFrom rdf:resource="http://www.example.org/assuranceonto#Logement"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratSante">
+        <rdfs:label xml:lang="fr">Contrat santé</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreBien"/><owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:maxQualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#BienAssure"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratVie">
+        <rdfs:label xml:lang="fr">Contrat vie</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#couvreBien"/><owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:maxQualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#BienAssure"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratResponsabiliteCivile">
+        <rdfs:label xml:lang="fr">Contrat responsabilité civile</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ContratPremium">
+        <rdfs:label xml:lang="fr">Contrat premium</rdfs:label>
+        <rdfs:comment xml:lang="fr">Classe définie : contrat comportant au moins 3 garanties distinctes.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ContratAssurance"/>
+        <owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType="Collection"><rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratAssurance"/><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#comporteGarantie"/><owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:minQualifiedCardinality><owl:onClass rdf:resource="http://www.example.org/assuranceonto#Garantie"/></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#GarantieObligatoire">
+        <rdfs:label xml:lang="fr">Garantie obligatoire</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+        <owl:disjointWith rdf:resource="http://www.example.org/assuranceonto#GarantieOptionnelle"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#GarantieOptionnelle">
+        <rdfs:label xml:lang="fr">Garantie optionnelle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Garantie"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ClauseExclusion">
+        <rdfs:label xml:lang="fr">Clause d'exclusion</rdfs:label>
+        <rdfs:comment xml:lang="fr">Clause qui exclut certains dommages de la couverture.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#excluDommage"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#Dommage"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ClauseResiliation">
+        <rdfs:label xml:lang="fr">Clause de résiliation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ClauseSubrogation">
+        <rdfs:label xml:lang="fr">Clause de subrogation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#ClauseLegale"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#DommageMateriel">
+        <rdfs:label xml:lang="fr">Dommage matériel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#DommageCorporel">
+        <rdfs:label xml:lang="fr">Dommage corporel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#DommageImmateriel">
+        <rdfs:label xml:lang="fr">Dommage immatériel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Dommage"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreAuto">
+        <rdfs:label xml:lang="fr">Sinistre automobile</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#concerneContrat"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#ContratAuto"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreIncendie">
+        <rdfs:label xml:lang="fr">Sinistre incendie</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#causeDommage"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#DommageMateriel"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreVol">
+        <rdfs:label xml:lang="fr">Sinistre vol</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#causeDommage"/><owl:someValuesFrom rdf:resource="http://www.example.org/assuranceonto#DommageMateriel"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreGrave">
+        <rdfs:label xml:lang="fr">Sinistre grave</rdfs:label>
+        <rdfs:comment xml:lang="fr">Classe définie : montant estimé supérieur ou égal à 10 000 TND.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <owl:disjointWith rdf:resource="http://www.example.org/assuranceonto#SinistreLeger"/>
+        <owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType="Collection"><rdf:Description rdf:about="http://www.example.org/assuranceonto#Sinistre"/><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#montantEstime"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:minInclusive rdf:datatype="&xsd;decimal">10000</xsd:minInclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreLeger">
+        <rdfs:label xml:lang="fr">Sinistre léger</rdfs:label>
+        <rdfs:comment xml:lang="fr">Classe définie : montant estimé strictement inférieur à 10 000 TND.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType="Collection"><rdf:Description rdf:about="http://www.example.org/assuranceonto#Sinistre"/><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#montantEstime"/><owl:someValuesFrom><rdfs:Datatype><owl:onDatatype rdf:resource="&xsd;decimal"/><owl:withRestrictions rdf:parseType="Collection"><rdf:Description><xsd:maxExclusive rdf:datatype="&xsd;decimal">10000</xsd:maxExclusive></rdf:Description></owl:withRestrictions></rdfs:Datatype></owl:someValuesFrom></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreCouvert">
+        <rdfs:label xml:lang="fr">Sinistre couvert</rdfs:label>
+        <rdfs:comment xml:lang="fr">Inféré par la règle SWRL R1 : une garantie du contrat couvre le dommage causé.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreExclu">
+        <rdfs:label xml:lang="fr">Sinistre exclu</rdfs:label>
+        <rdfs:comment xml:lang="fr">Inféré par la règle SWRL R2 : une clause d'exclusion du contrat vise le dommage causé.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#SinistreAExpertiser">
+        <rdfs:label xml:lang="fr">Sinistre à expertiser</rdfs:label>
+        <rdfs:comment xml:lang="fr">Inféré par la règle SWRL R3 : tout sinistre grave nécessite une expertise.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#AssureParticulier">
+        <rdfs:label xml:lang="fr">Assuré particulier</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+        <owl:disjointWith rdf:resource="http://www.example.org/assuranceonto#AssureEntreprise"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#age"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onDataRange rdf:resource="&xsd;integer"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#AssureEntreprise">
+        <rdfs:label xml:lang="fr">Assuré entreprise</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Assure"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Vehicule">
+        <rdfs:label xml:lang="fr">Véhicule</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#BienAssure"/>
+        <owl:disjointWith rdf:resource="http://www.example.org/assuranceonto#Logement"/>
+        <rdfs:subClassOf><owl:Restriction><owl:onProperty rdf:resource="http://www.example.org/assuranceonto#immatriculation"/><owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality><owl:onDataRange rdf:resource="&xsd;string"/></owl:Restriction></rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#Logement">
+        <rdfs:label xml:lang="fr">Logement</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#BienAssure"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ExpertAutomobile">
+        <rdfs:label xml:lang="fr">Expert automobile</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Expert"/>
+        <owl:disjointWith rdf:resource="http://www.example.org/assuranceonto#ExpertImmobilier"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://www.example.org/assuranceonto#ExpertImmobilier">
+        <rdfs:label xml:lang="fr">Expert immobilier</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.example.org/assuranceonto#Expert"/>
+    </owl:Class>
+
+    <!-- Les 12 classes principales sont deux à deux disjointes -->
+    <owl:AllDisjointClasses>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratAssurance"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Garantie"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ClauseLegale"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Dommage"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Sinistre"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Assure"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Assureur"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Expert"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Indemnisation"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#BienAssure"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#Prime"/>
+        </owl:members>
+    </owl:AllDisjointClasses>
+
+    <!-- Les 5 types de contrats sont deux à deux disjoints -->
+    <owl:AllDisjointClasses>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratAuto"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratHabitation"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratSante"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratVie"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ContratResponsabiliteCivile"/>
+        </owl:members>
+    </owl:AllDisjointClasses>
+
+    <!-- Les 3 types de dommages sont deux à deux disjoints -->
+    <owl:AllDisjointClasses>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#DommageMateriel"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#DommageCorporel"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#DommageImmateriel"/>
+        </owl:members>
+    </owl:AllDisjointClasses>
+
+    <!-- Les 3 types de clauses sont deux à deux disjoints -->
+    <owl:AllDisjointClasses>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ClauseExclusion"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ClauseResiliation"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#ClauseSubrogation"/>
+        </owl:members>
+    </owl:AllDisjointClasses>
+
+    <!-- ================================================================ -->
+    <!--  INSTANCES                                                     -->
+    <!-- ================================================================ -->
+
+    <!-- Assureurs -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#STAR_Assurances">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <raisonSociale rdf:datatype="&xsd;string">STAR Assurances</raisonSociale>
+        <emet rdf:resource="http://www.example.org/assuranceonto#Contrat_Auto_001"/>
+        <emet rdf:resource="http://www.example.org/assuranceonto#Contrat_Hab_001"/>
+        <emploieExpert rdf:resource="http://www.example.org/assuranceonto#Expert_Mourad"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#COMAR">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <raisonSociale rdf:datatype="&xsd;string">COMAR</raisonSociale>
+        <emet rdf:resource="http://www.example.org/assuranceonto#Contrat_Sante_001"/>
+        <emet rdf:resource="http://www.example.org/assuranceonto#Contrat_RC_001"/>
+        <emploieExpert rdf:resource="http://www.example.org/assuranceonto#Expert_Leila"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#GAT_Assurances">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Assureur"/>
+        <raisonSociale rdf:datatype="&xsd;string">GAT Assurances</raisonSociale>
+        <emet rdf:resource="http://www.example.org/assuranceonto#Contrat_Vie_001"/>
+    </owl:NamedIndividual>
+
+    <!-- Assurés -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Ahmed_BenSalah">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#AssureParticulier"/>
+        <nomAssure rdf:datatype="&xsd;string">Ahmed Ben Salah</nomAssure>
+        <age rdf:datatype="&xsd;integer">35</age>
+        <coAssureAvec rdf:resource="http://www.example.org/assuranceonto#Salma_Trabelsi"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Salma_Trabelsi">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#AssureParticulier"/>
+        <nomAssure rdf:datatype="&xsd;string">Salma Trabelsi</nomAssure>
+        <age rdf:datatype="&xsd;integer">32</age>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Societe_Medis">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#AssureEntreprise"/>
+        <nomAssure rdf:datatype="&xsd;string">Société Medis SARL</nomAssure>
+    </owl:NamedIndividual>
+
+    <!-- Biens assurés -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Vehicule_Peugeot208">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Vehicule"/>
+        <immatriculation rdf:datatype="&xsd;string">123 TUN 4567</immatriculation>
+        <valeurBien rdf:datatype="&xsd;decimal">38000</valeurBien>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Vehicule_Clio">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Vehicule"/>
+        <immatriculation rdf:datatype="&xsd;string">210 TUN 8890</immatriculation>
+        <valeurBien rdf:datatype="&xsd;decimal">27000</valeurBien>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Logement_Sousse">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Logement"/>
+        <surfaceM2 rdf:datatype="&xsd;decimal">120</surfaceM2>
+        <valeurBien rdf:datatype="&xsd;decimal">250000</valeurBien>
+    </owl:NamedIndividual>
+
+    <!-- Primes -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Prime_Auto_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Prime"/>
+        <montantPrime rdf:datatype="&xsd;decimal">1200</montantPrime>
+        <periodicite rdf:datatype="&xsd;string">Annuelle</periodicite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Prime_Hab_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Prime"/>
+        <montantPrime rdf:datatype="&xsd;decimal">650</montantPrime>
+        <periodicite rdf:datatype="&xsd;string">Annuelle</periodicite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Prime_Sante_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Prime"/>
+        <montantPrime rdf:datatype="&xsd;decimal">90</montantPrime>
+        <periodicite rdf:datatype="&xsd;string">Mensuelle</periodicite>
+    </owl:NamedIndividual>
+
+    <!-- Dommages (types de dommages) -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_Collision">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageMateriel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">3</niveauGravite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_Incendie">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageMateriel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">5</niveauGravite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_Vol">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageMateriel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">4</niveauGravite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_DegatsEaux">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageMateriel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">2</niveauGravite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_BlessureCorporelle">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageCorporel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">4</niveauGravite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_Deces">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageCorporel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">5</niveauGravite>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Dommage_PerteExploitation">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#DommageImmateriel"/>
+        <niveauGravite rdf:datatype="&xsd;integer">3</niveauGravite>
+    </owl:NamedIndividual>
+
+    <!-- Garanties -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_ResponsabiliteCivile">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieObligatoire"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">500000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">0</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_BlessureCorporelle"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_Collision">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieOptionnelle"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">40000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">300</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Collision"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_Vol">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieOptionnelle"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">40000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">500</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Vol"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_IncendieAuto">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieOptionnelle"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">40000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">200</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Incendie"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_IncendieHabitation">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieObligatoire"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">250000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">500</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Incendie"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_DegatsEaux">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieOptionnelle"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">30000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">150</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_DegatsEaux"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_Hospitalisation">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieObligatoire"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">100000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">0</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_BlessureCorporelle"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#G_DecesInvalidite">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#GarantieObligatoire"/>
+        <plafondGarantie rdf:datatype="&xsd;decimal">150000</plafondGarantie>
+        <franchise rdf:datatype="&xsd;decimal">0</franchise>
+        <couvreDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Deces"/>
+    </owl:NamedIndividual>
+
+    <!-- Clauses légales -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Clause_ExclusionPerteExploitation">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ClauseExclusion"/>
+        <libelleClause rdf:datatype="&xsd;string">Les pertes d'exploitation sont exclues de la couverture habitation.</libelleClause>
+        <referenceLegale rdf:datatype="&xsd;string">Code des assurances, art. 7</referenceLegale>
+        <excluDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_PerteExploitation"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Clause_Resiliation_Preavis">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ClauseResiliation"/>
+        <libelleClause rdf:datatype="&xsd;string">Résiliation possible à l'échéance avec un préavis de 30 jours.</libelleClause>
+        <referenceLegale rdf:datatype="&xsd;string">Code des assurances, art. 12</referenceLegale>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Clause_Subrogation">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ClauseSubrogation"/>
+        <libelleClause rdf:datatype="&xsd;string">L'assureur est subrogé dans les droits de l'assuré après indemnisation.</libelleClause>
+        <referenceLegale rdf:datatype="&xsd;string">Code des assurances, art. 30</referenceLegale>
+    </owl:NamedIndividual>
+
+    <!-- Barèmes d'indemnisation -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Bareme_Collision">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <tauxIndemnisation rdf:datatype="&xsd;decimal">80</tauxIndemnisation>
+        <plafondIndemnisation rdf:datatype="&xsd;decimal">40000</plafondIndemnisation>
+        <baremePourDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Collision"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Bareme_Incendie">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <tauxIndemnisation rdf:datatype="&xsd;decimal">100</tauxIndemnisation>
+        <plafondIndemnisation rdf:datatype="&xsd;decimal">250000</plafondIndemnisation>
+        <baremePourDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Incendie"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Bareme_Vol">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <tauxIndemnisation rdf:datatype="&xsd;decimal">90</tauxIndemnisation>
+        <plafondIndemnisation rdf:datatype="&xsd;decimal">40000</plafondIndemnisation>
+        <baremePourDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Vol"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Bareme_DegatsEaux">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#BaremeIndemnisation"/>
+        <tauxIndemnisation rdf:datatype="&xsd;decimal">70</tauxIndemnisation>
+        <plafondIndemnisation rdf:datatype="&xsd;decimal">30000</plafondIndemnisation>
+        <baremePourDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_DegatsEaux"/>
+    </owl:NamedIndividual>
+
+    <!-- Experts -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Expert_Mourad">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ExpertAutomobile"/>
+        <nomExpert rdf:datatype="&xsd;string">Mourad Jebali</nomExpert>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Expert_Leila">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ExpertImmobilier"/>
+        <nomExpert rdf:datatype="&xsd;string">Leila Mansouri</nomExpert>
+    </owl:NamedIndividual>
+
+    <!-- Contrats -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Contrat_Auto_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ContratAuto"/>
+        <numeroContrat rdf:datatype="&xsd;string">AUTO-2026-001</numeroContrat>
+        <dateEffet rdf:datatype="&xsd;dateTime">2026-01-01T00:00:00</dateEffet>
+        <dateEcheance rdf:datatype="&xsd;dateTime">2026-12-31T00:00:00</dateEcheance>
+        <souscritPar rdf:resource="http://www.example.org/assuranceonto#Ahmed_BenSalah"/>
+        <emisPar rdf:resource="http://www.example.org/assuranceonto#STAR_Assurances"/>
+        <couvreBien rdf:resource="http://www.example.org/assuranceonto#Vehicule_Peugeot208"/>
+        <aPrime rdf:resource="http://www.example.org/assuranceonto#Prime_Auto_001"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_ResponsabiliteCivile"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_Collision"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_Vol"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_IncendieAuto"/>
+        <contientClause rdf:resource="http://www.example.org/assuranceonto#Clause_Resiliation_Preavis"/>
+        <contientClause rdf:resource="http://www.example.org/assuranceonto#Clause_Subrogation"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Contrat_Hab_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ContratHabitation"/>
+        <numeroContrat rdf:datatype="&xsd;string">HAB-2026-001</numeroContrat>
+        <dateEffet rdf:datatype="&xsd;dateTime">2026-03-01T00:00:00</dateEffet>
+        <dateEcheance rdf:datatype="&xsd;dateTime">2027-02-28T00:00:00</dateEcheance>
+        <souscritPar rdf:resource="http://www.example.org/assuranceonto#Salma_Trabelsi"/>
+        <emisPar rdf:resource="http://www.example.org/assuranceonto#STAR_Assurances"/>
+        <couvreBien rdf:resource="http://www.example.org/assuranceonto#Logement_Sousse"/>
+        <aPrime rdf:resource="http://www.example.org/assuranceonto#Prime_Hab_001"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_IncendieHabitation"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_DegatsEaux"/>
+        <contientClause rdf:resource="http://www.example.org/assuranceonto#Clause_ExclusionPerteExploitation"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Contrat_Sante_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ContratSante"/>
+        <numeroContrat rdf:datatype="&xsd;string">SANTE-2026-001</numeroContrat>
+        <dateEffet rdf:datatype="&xsd;dateTime">2026-02-01T00:00:00</dateEffet>
+        <souscritPar rdf:resource="http://www.example.org/assuranceonto#Ahmed_BenSalah"/>
+        <emisPar rdf:resource="http://www.example.org/assuranceonto#COMAR"/>
+        <aPrime rdf:resource="http://www.example.org/assuranceonto#Prime_Sante_001"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_Hospitalisation"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Contrat_RC_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ContratResponsabiliteCivile"/>
+        <numeroContrat rdf:datatype="&xsd;string">RC-2026-001</numeroContrat>
+        <dateEffet rdf:datatype="&xsd;dateTime">2026-01-15T00:00:00</dateEffet>
+        <souscritPar rdf:resource="http://www.example.org/assuranceonto#Societe_Medis"/>
+        <emisPar rdf:resource="http://www.example.org/assuranceonto#COMAR"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_ResponsabiliteCivile"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Contrat_Vie_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#ContratVie"/>
+        <numeroContrat rdf:datatype="&xsd;string">VIE-2026-001</numeroContrat>
+        <dateEffet rdf:datatype="&xsd;dateTime">2026-01-01T00:00:00</dateEffet>
+        <souscritPar rdf:resource="http://www.example.org/assuranceonto#Salma_Trabelsi"/>
+        <emisPar rdf:resource="http://www.example.org/assuranceonto#GAT_Assurances"/>
+        <comporteGarantie rdf:resource="http://www.example.org/assuranceonto#G_DecesInvalidite"/>
+    </owl:NamedIndividual>
+
+    <!-- Les 4 garanties de Contrat_Auto_001 sont distinctes (permet d'inférer ContratPremium) -->
+    <owl:AllDifferent>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#G_ResponsabiliteCivile"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#G_Collision"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#G_Vol"/>
+            <rdf:Description rdf:about="http://www.example.org/assuranceonto#G_IncendieAuto"/>
+        </owl:distinctMembers>
+    </owl:AllDifferent>
+
+    <!-- Sinistres -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Sinistre_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#SinistreAuto"/>
+        <montantEstime rdf:datatype="&xsd;decimal">6500</montantEstime>
+        <dateSinistre rdf:datatype="&xsd;dateTime">2026-05-12T00:00:00</dateSinistre>
+        <dateDeclaration rdf:datatype="&xsd;dateTime">2026-05-13T00:00:00</dateDeclaration>
+        <concerneContrat rdf:resource="http://www.example.org/assuranceonto#Contrat_Auto_001"/>
+        <declarePar rdf:resource="http://www.example.org/assuranceonto#Ahmed_BenSalah"/>
+        <causeDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Collision"/>
+        <expertisePar rdf:resource="http://www.example.org/assuranceonto#Expert_Mourad"/>
+        <donneLieuA rdf:resource="http://www.example.org/assuranceonto#Indemnisation_001"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Sinistre_002">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#SinistreIncendie"/>
+        <montantEstime rdf:datatype="&xsd;decimal">45000</montantEstime>
+        <dateSinistre rdf:datatype="&xsd;dateTime">2026-06-20T00:00:00</dateSinistre>
+        <dateDeclaration rdf:datatype="&xsd;dateTime">2026-06-21T00:00:00</dateDeclaration>
+        <concerneContrat rdf:resource="http://www.example.org/assuranceonto#Contrat_Hab_001"/>
+        <declarePar rdf:resource="http://www.example.org/assuranceonto#Salma_Trabelsi"/>
+        <causeDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Incendie"/>
+        <expertisePar rdf:resource="http://www.example.org/assuranceonto#Expert_Leila"/>
+        <donneLieuA rdf:resource="http://www.example.org/assuranceonto#Indemnisation_002"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Sinistre_003">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#SinistreVol"/>
+        <montantEstime rdf:datatype="&xsd;decimal">38000</montantEstime>
+        <dateSinistre rdf:datatype="&xsd;dateTime">2026-07-03T00:00:00</dateSinistre>
+        <dateDeclaration rdf:datatype="&xsd;dateTime">2026-07-04T00:00:00</dateDeclaration>
+        <concerneContrat rdf:resource="http://www.example.org/assuranceonto#Contrat_Auto_001"/>
+        <declarePar rdf:resource="http://www.example.org/assuranceonto#Ahmed_BenSalah"/>
+        <causeDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_Vol"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Sinistre_004">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Sinistre"/>
+        <montantEstime rdf:datatype="&xsd;decimal">12000</montantEstime>
+        <dateSinistre rdf:datatype="&xsd;dateTime">2026-08-15T00:00:00</dateSinistre>
+        <dateDeclaration rdf:datatype="&xsd;dateTime">2026-08-16T00:00:00</dateDeclaration>
+        <concerneContrat rdf:resource="http://www.example.org/assuranceonto#Contrat_Hab_001"/>
+        <declarePar rdf:resource="http://www.example.org/assuranceonto#Salma_Trabelsi"/>
+        <causeDommage rdf:resource="http://www.example.org/assuranceonto#Dommage_PerteExploitation"/>
+    </owl:NamedIndividual>
+
+    <!-- Indemnisations -->
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Indemnisation_001">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <montantVerse rdf:datatype="&xsd;decimal">5200</montantVerse>
+        <dateVersement rdf:datatype="&xsd;dateTime">2026-06-10T00:00:00</dateVersement>
+        <selonBareme rdf:resource="http://www.example.org/assuranceonto#Bareme_Collision"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.example.org/assuranceonto#Indemnisation_002">
+        <rdf:type rdf:resource="http://www.example.org/assuranceonto#Indemnisation"/>
+        <montantVerse rdf:datatype="&xsd;decimal">45000</montantVerse>
+        <dateVersement rdf:datatype="&xsd;dateTime">2026-07-25T00:00:00</dateVersement>
+        <selonBareme rdf:resource="http://www.example.org/assuranceonto#Bareme_Incendie"/>
+    </owl:NamedIndividual>
+    <!-- ================================================================ -->
+    <!--  RÈGLES SWRL                                                   -->
+    <!-- ================================================================ -->
+
+    <!-- R1 : Sinistre(?s) ^ concerneContrat(?s,?c) ^ comporteGarantie(?c,?g) ^ couvreDommage(?g,?d) ^ causeDommage(?s,?d) -> SinistreCouvert(?s) -->
+    <!-- R2 : Sinistre(?s) ^ concerneContrat(?s,?c) ^ contientClause(?c,?cl) ^ excluDommage(?cl,?d) ^ causeDommage(?s,?d) -> SinistreExclu(?s) -->
+    <!-- R3 : SinistreGrave(?s) -> SinistreAExpertiser(?s) -->
+
+    <swrl:Variable rdf:about="urn:swrl#s"/>
+    <swrl:Variable rdf:about="urn:swrl#c"/>
+    <swrl:Variable rdf:about="urn:swrl#g"/>
+    <swrl:Variable rdf:about="urn:swrl#d"/>
+    <swrl:Variable rdf:about="urn:swrl#cl"/>
+
+    <swrl:Imp>
+        <rdfs:label>R1_SinistreCouvert</rdfs:label>
+        <swrl:body><swrl:AtomList><rdf:first><swrl:ClassAtom><swrl:classPredicate rdf:resource="http://www.example.org/assuranceonto#Sinistre"/><swrl:argument1 rdf:resource="urn:swrl#s"/></swrl:ClassAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#concerneContrat"/><swrl:argument1 rdf:resource="urn:swrl#s"/><swrl:argument2 rdf:resource="urn:swrl#c"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#comporteGarantie"/><swrl:argument1 rdf:resource="urn:swrl#c"/><swrl:argument2 rdf:resource="urn:swrl#g"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#couvreDommage"/><swrl:argument1 rdf:resource="urn:swrl#g"/><swrl:argument2 rdf:resource="urn:swrl#d"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#causeDommage"/><swrl:argument1 rdf:resource="urn:swrl#s"/><swrl:argument2 rdf:resource="urn:swrl#d"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></swrl:AtomList></rdf:rest></swrl:AtomList></rdf:rest></swrl:AtomList></rdf:rest></swrl:AtomList></rdf:rest></swrl:AtomList></swrl:body>
+        <swrl:head><swrl:AtomList><rdf:first><swrl:ClassAtom><swrl:classPredicate rdf:resource="http://www.example.org/assuranceonto#SinistreCouvert"/><swrl:argument1 rdf:resource="urn:swrl#s"/></swrl:ClassAtom></rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></swrl:AtomList></swrl:head>
+    </swrl:Imp>
+
+    <swrl:Imp>
+        <rdfs:label>R2_SinistreExclu</rdfs:label>
+        <swrl:body><swrl:AtomList><rdf:first><swrl:ClassAtom><swrl:classPredicate rdf:resource="http://www.example.org/assuranceonto#Sinistre"/><swrl:argument1 rdf:resource="urn:swrl#s"/></swrl:ClassAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#concerneContrat"/><swrl:argument1 rdf:resource="urn:swrl#s"/><swrl:argument2 rdf:resource="urn:swrl#c"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#contientClause"/><swrl:argument1 rdf:resource="urn:swrl#c"/><swrl:argument2 rdf:resource="urn:swrl#cl"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#excluDommage"/><swrl:argument1 rdf:resource="urn:swrl#cl"/><swrl:argument2 rdf:resource="urn:swrl#d"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest><swrl:AtomList><rdf:first><swrl:IndividualPropertyAtom><swrl:propertyPredicate rdf:resource="http://www.example.org/assuranceonto#causeDommage"/><swrl:argument1 rdf:resource="urn:swrl#s"/><swrl:argument2 rdf:resource="urn:swrl#d"/></swrl:IndividualPropertyAtom></rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></swrl:AtomList></rdf:rest></swrl:AtomList></rdf:rest></swrl:AtomList></rdf:rest></swrl:AtomList></rdf:rest></swrl:AtomList></swrl:body>
+        <swrl:head><swrl:AtomList><rdf:first><swrl:ClassAtom><swrl:classPredicate rdf:resource="http://www.example.org/assuranceonto#SinistreExclu"/><swrl:argument1 rdf:resource="urn:swrl#s"/></swrl:ClassAtom></rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></swrl:AtomList></swrl:head>
+    </swrl:Imp>
+
+    <swrl:Imp>
+        <rdfs:label>R3_SinistreGraveAExpertiser</rdfs:label>
+        <swrl:body><swrl:AtomList><rdf:first><swrl:ClassAtom><swrl:classPredicate rdf:resource="http://www.example.org/assuranceonto#SinistreGrave"/><swrl:argument1 rdf:resource="urn:swrl#s"/></swrl:ClassAtom></rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></swrl:AtomList></swrl:body>
+        <swrl:head><swrl:AtomList><rdf:first><swrl:ClassAtom><swrl:classPredicate rdf:resource="http://www.example.org/assuranceonto#SinistreAExpertiser"/><swrl:argument1 rdf:resource="urn:swrl#s"/></swrl:ClassAtom></rdf:first><rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></swrl:AtomList></swrl:head>
+    </swrl:Imp>
+
+</rdf:RDF>
